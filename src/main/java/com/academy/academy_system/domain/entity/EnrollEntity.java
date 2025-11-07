@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "Enrolls")
@@ -35,8 +36,6 @@ public class EnrollEntity {
     @JoinColumn(name = "id_course")
     private CourseEntity course;
 
-    // Getters and Setters
-
 
     @Override
     public String toString() {
@@ -46,5 +45,17 @@ public class EnrollEntity {
                 ", user=" + user +
                 ", course=" + course +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        EnrollEntity that = (EnrollEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(createdAt, that.createdAt) && Objects.equals(user, that.user) && Objects.equals(course, that.course);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, createdAt, user, course);
     }
 }

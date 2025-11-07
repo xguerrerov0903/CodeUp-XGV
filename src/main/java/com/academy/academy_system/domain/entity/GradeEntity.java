@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
 
 @Entity
 @Table(name = "Grades")
@@ -38,5 +40,17 @@ public class GradeEntity extends  BaseEntity{
                 ", task=" + task +
                 ", user=" + user +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        GradeEntity that = (GradeEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(score, that.score) && Objects.equals(task, that.task) && Objects.equals(user, that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, score, task, user);
     }
 }
